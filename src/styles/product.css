@@ -1,0 +1,20 @@
+.card{
+    width: 200px;
+    max-height: 420px;
+    overflow: hidden;
+}
+
+.description, .title{
+    overflow: hidden; /* Hides overflowing content */
+    text-overflow: ellipsis; /* Displays ellipsis for truncated text */
+    display: -webkit-box; /* Enables the flexible box model */
+    -webkit-line-clamp: 2; /* Limits the text to 3 lines */
+    -webkit-box-orient: vertical;
+}
+
+.product-image{
+    height: 140px;
+    width: 100%;
+    object-fit: contain;
+    display: block;
+}
