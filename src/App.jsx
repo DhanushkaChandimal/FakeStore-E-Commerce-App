@@ -1,11 +1,17 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import AppNavbar from "./components/NavBar"
+import HomePage from "./components/HomePage"
 
 function App() {
 
   return (
-    <>
-      <h1>FakeStore E-Commerce App</h1>
-    </>
+    <div className='mx-3'>
+      <AppNavbar />
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+      </Routes>
+    </div>
   )
 }
 
