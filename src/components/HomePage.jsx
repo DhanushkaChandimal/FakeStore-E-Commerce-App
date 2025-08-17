@@ -39,6 +39,27 @@ const HomePage = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+
+            <Container className="mt-5">
+                <h2 className="text-center mb-4">Featured Products</h2>
+                <Row>
+                    {[
+                        { id: 1, name: "Stylish Watch", img: "../featured-watches.jpg" },
+                        { id: 2, name: "Trendy Shoes", img: "../featured-shoes.jpg" },
+                        { id: 3, name: "Smartphone", img: "../featured-smartphones.jpg" },
+                    ].map((product) => (
+                        <Col key={product.id} className="mb-4">
+                            <Card className="shadow-sm h-100">
+                                <Card.Img variant="top" src={product.img} />
+                                <Card.Body className="text-center">
+                                    <Card.Title>{product.name}</Card.Title>
+                                    <Button variant="primary" onClick={goToProducts}>View More</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
         </div>
     );
 };
