@@ -1,5 +1,10 @@
 import '../styles/home-page.css'
-import { Container, Row, Col, Button, Card, Carousel } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
