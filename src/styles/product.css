@@ -8,7 +8,8 @@
     overflow: hidden; /* Hides overflowing content */
     text-overflow: ellipsis; /* Displays ellipsis for truncated text */
     display: -webkit-box; /* Enables the flexible box model */
-    -webkit-line-clamp: 2; /* Limits the text to 3 lines */
+    -webkit-line-clamp: 2; /* Limits the text to 2 lines */
+    line-clamp: 2; /* Standard property for compatibility */
     -webkit-box-orient: vertical;
 }
 
@@ -17,4 +18,11 @@
     width: 100%;
     object-fit: contain;
     display: block;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
