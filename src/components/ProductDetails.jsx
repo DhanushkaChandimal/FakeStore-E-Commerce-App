@@ -43,6 +43,8 @@ const ProductDetails = () => {
                                 <img key={index} src="../empty-star.png" alt="Empty Star" />
                             ))}
                         </div>
+                        <button>Add to Cart</button>
+                        <button>Delete Product</button>
                     </div>
                 </div>
             ) : (

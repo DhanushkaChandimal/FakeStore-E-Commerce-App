@@ -16,3 +16,19 @@
 .product-details p {
     margin: 5px 0;
 }
+
+.product-details button {
+    margin: 10px 20px 0 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.product-details button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
