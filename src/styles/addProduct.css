@@ -1,0 +1,7 @@
+.img-preview {
+    max-width: 200px;
+    margin-top: 1rem;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

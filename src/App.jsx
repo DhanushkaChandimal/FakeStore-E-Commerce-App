@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import './App.css'
 import AppNavbar from "./components/NavBar"
 import HomePage from "./components/HomePage"
@@ -14,6 +15,19 @@ function App() {
   const [showToastMessage, setShowToastMessage] = useState(false)
   const [toastMessage, setToastMessage] = useState("")
 
+  useEffect(() => {
+    if (productList.length > 0) return; // If productList is already populated, skip fetching
+    axios.get('https://fakestoreapi.com/products')
+    .then(response => {
+      console.log(response.data);
+      // console.log(response.data[0]);
+      setProductList(response.data);
+    })
+    .catch(error => {
+      console.log("Error fetching form data. Please contact an admin. " + error)
+    });
+  }, [setProductList, productList.length]);
+
   return (
     <div className='mx-3'>
       <AppNavbar />
@@ -21,9 +35,13 @@ function App() {
         <Route path="/" element={<HomePage/>}/>
         <Route path="/products" element={<ProductList
           productList={productList}
-          setProductList={setProductList}
         />}/>
-        <Route path="/add-product" element={<AddProduct/>}/>
+        <Route path="/add-product" element={<AddProduct
+          productList={productList}
+          setProductList={setProductList}
+          setToastMessage={setToastMessage}
+          setShowToastMessage={setShowToastMessage}
+        />}/>
         <Route path="/products/:id" element={<ProductDetails
           productList={productList}
           setProductList={setProductList}
