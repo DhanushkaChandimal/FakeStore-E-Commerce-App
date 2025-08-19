@@ -1,4 +1,5 @@
 import axios from "axios";
+import "../styles/product-details.css"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -20,28 +21,29 @@ const ProductDetails = () => {
 
     return (
         <div>
-            <h2>Product Details</h2>
+            <h2 className="text-center">Product Details</h2>
             {product ? (
-                <div>
-                    <h3>{product.title}</h3>
+                <div className="product-details">
                     <img src={product.image} alt={product.title} />
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price}</p>
-                    <p>Category: {product.category}</p>
-                    <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
-                    {/* add rating as stars filled according to exact percentage as images */}
-                    <div className="rating-stars">
-                        {[...Array(Math.floor(product.rating.rate))].map((_, index) => (
-                            <img key={index} src="../star.png" alt="Filled Star" />
-                        ))}
-                        {product.rating.rate % 1 !== 0 && (
-                            <img src="/half-star.png" alt="Half Filled Star" />
-                        )}
-                        {[...Array(5 - Math.ceil(product.rating.rate))].map((_, index) => (
-                            <img key={index} src="../empty-star.png" alt="Empty Star" />
-                        ))}
+                    <div>
+                        <h3>{product.title}</h3>
+                        <p>{product.description}</p>
+                        <p>Price: ${product.price}</p>
+                        <p>Category: {product.category}</p>
+                        <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
+                        {/* add rating as stars filled according to exact percentage as images */}
+                        <div className="rating-stars">
+                            {[...Array(Math.floor(product.rating.rate))].map((_, index) => (
+                                <img key={index} src="../star.png" alt="Filled Star" />
+                            ))}
+                            {product.rating.rate % 1 !== 0 && (
+                                <img src="/half-star.png" alt="Half Filled Star" />
+                            )}
+                            {[...Array(5 - Math.ceil(product.rating.rate))].map((_, index) => (
+                                <img key={index} src="../empty-star.png" alt="Empty Star" />
+                            ))}
+                        </div>
                     </div>
-
                 </div>
             ) : (
                 <p>Product not found</p>

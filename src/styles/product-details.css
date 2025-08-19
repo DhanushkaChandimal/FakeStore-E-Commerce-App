@@ -1,0 +1,18 @@
+/* make image and text side by side */
+.product-details {
+    display: flex;
+    align-items: center;
+}
+
+.product-details img {
+    max-width: 300px;
+    margin-right: 20px;
+}
+
+.product-details h3 {
+    margin: 0;
+}
+
+.product-details p {
+    margin: 5px 0;
+}
