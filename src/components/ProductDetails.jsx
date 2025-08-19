@@ -1,12 +1,13 @@
 import axios from "axios";
 import "../styles/product-details.css"
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-const ProductDetails = () => {
+const ProductDetails = ({ productList, setProductList }) => {
 
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`https://fakestoreapi.com/products/${id}`)
@@ -18,6 +19,18 @@ const ProductDetails = () => {
                 console.error("Error fetching product:", error);
             });
     }, [id]);
+
+    const handleDeleteProduct = (productId) => {
+        axios.delete(`https://fakestoreapi.com/products/${productId}`)
+        .then(response => {
+            console.log("Product deleted:", response.data);
+            setProductList(productList.filter(product => product.id !== productId));
+            navigate('/products');
+        })
+        .catch(error => {
+            console.error("Error deleting product:", error);
+        });
+    };
 
     return (
         <div>
@@ -44,7 +57,7 @@ const ProductDetails = () => {
                             ))}
                         </div>
                         <button>Add to Cart</button>
-                        <button>Delete Product</button>
+                        <button onClick={() => handleDeleteProduct(product.id)}>Delete Product</button>
                     </div>
                 </div>
             ) : (

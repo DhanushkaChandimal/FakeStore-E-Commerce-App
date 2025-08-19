@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
 import './App.css'
 import AppNavbar from "./components/NavBar"
 import HomePage from "./components/HomePage"
@@ -8,14 +9,16 @@ import ProductDetails from "./components/ProductDetails"
 
 function App() {
 
+  const [productList, setProductList] = useState([])
+
   return (
     <div className='mx-3'>
       <AppNavbar />
       <Routes>
         <Route path="/" element={<HomePage/>}/>
-        <Route path="/products" element={<ProductList/>}/>
+        <Route path="/products" element={<ProductList productList={productList} setProductList={setProductList}/>}/>
         <Route path="/add-product" element={<AddProduct/>}/>
-        <Route path="/products/:id" element={<ProductDetails/>}/>
+        <Route path="/products/:id" element={<ProductDetails productList={productList} setProductList={setProductList}/>}/>
       </Routes>
     </div>
   )

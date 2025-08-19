@@ -1,11 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Product from "./Product"
 
-const ProductList = () =>{
-    const [productList, setProductList] = useState([])
-
+const ProductList = ({ productList, setProductList }) => {
     useEffect(() => {
+        if (productList.length > 0) return; // If productList is already populated, skip fetching
         axios.get('https://fakestoreapi.com/products')
         .then(response => {
             // console.log(response.data);
@@ -15,7 +14,7 @@ const ProductList = () =>{
         .catch(error => {
             console.log("Error fetching form data. Please contact an admin. " + error)
         });
-    }, []);
+    }, [setProductList, productList.length]);
 
     return (
         <div>
