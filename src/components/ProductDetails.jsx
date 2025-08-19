@@ -3,7 +3,7 @@ import "../styles/product-details.css"
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-const ProductDetails = ({ productList, setProductList }) => {
+const ProductDetails = ({ productList, setProductList, setToastMessage, setShowToastMessage }) => {
 
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -26,6 +26,8 @@ const ProductDetails = ({ productList, setProductList }) => {
             console.log("Product deleted:", response.data);
             setProductList(productList.filter(product => product.id !== productId));
             navigate('/products');
+            setToastMessage(`${response.data.title} deleted successfully!`);
+            setShowToastMessage(true);
         })
         .catch(error => {
             console.error("Error deleting product:", error);
@@ -44,7 +46,6 @@ const ProductDetails = ({ productList, setProductList }) => {
                         <p>Price: ${product.price}</p>
                         <p>Category: {product.category}</p>
                         <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
-                        {/* add rating as stars filled according to exact percentage as images */}
                         <div className="rating-stars">
                             {[...Array(Math.floor(product.rating.rate))].map((_, index) => (
                                 <img key={index} src="../star.png" alt="Filled Star" />
