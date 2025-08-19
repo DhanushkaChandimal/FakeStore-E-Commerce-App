@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/product.css";
 import Card from "react-bootstrap/Card";
 
@@ -5,8 +6,15 @@ const Product = ({productDetails}) => {
 
     // console.log(productDetails)
 
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        console.log("Card clicked");
+        navigate(`/products/${productDetails.id}`);
+    }
+
     return (
-        <Card className="card">
+        <Card className="card" onClick={() => handleClick()}>
             <Card.Img variant="top" src={productDetails.image} className="product-image p-2"/>
             <Card.Body>
                 <Card.Title>${productDetails.price}</Card.Title>
