@@ -83,6 +83,7 @@ function App() {
           setCartItems={setCartItems}
           cartItems={cartItems}
           setPageLoading={setPageLoading}
+          setToastType={setToastType}
         />}/>
 
         <Route path="/cart" element={<Cart

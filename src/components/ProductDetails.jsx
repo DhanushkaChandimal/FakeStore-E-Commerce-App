@@ -11,7 +11,8 @@ const ProductDetails = ({
         setShowToastMessage,
         setCartItems,
         cartItems,
-        setPageLoading
+        setPageLoading,
+        setToastType
     }) => {
 
     const { id } = useParams();
@@ -26,13 +27,16 @@ const ProductDetails = ({
                 console.log("Fetched product:", response.data);
                 setProduct(response.data);
             })
-            .catch(error => {
-                console.error("Error fetching product:", error);
+            .catch(() => {
+                setToastMessage("Error fetching product. Please try again later.");
+                setToastType("error");
+                setShowToastMessage(true);
+                console.error("Error fetching product:");
             })
             .finally(() => {
                 setPageLoading(false);
             });
-    }, [id, setPageLoading]);
+    }, [id, setPageLoading, setToastMessage, setShowToastMessage, setToastType]);
 
     const handleDeleteProduct = (productId) => {
         setPageLoading(true);
@@ -42,11 +46,14 @@ const ProductDetails = ({
             setProductList(productList.filter(product => product.id !== productId));
             navigate('/products');
             setToastMessage(`${response.data.title} deleted successfully!`);
+            setToastType("success");
             setShowToastMessage(true);
             setShowConfirmationModal(false);
         })
-        .catch(error => {
-            console.error("Error deleting product:", error);
+        .catch(() => {
+            setToastMessage("Error deleting product. Please try again later.");
+            setToastType("error");
+            setShowToastMessage(true);
         })
         .finally(() => {
             setPageLoading(false);
@@ -54,11 +61,17 @@ const ProductDetails = ({
     };
 
     const handleEditProduct = (productId) => {
-        navigate(`/edit-product/${productId}`);
+        try {
+            navigate(`/edit-product/${productId}`);
+        } catch {
+            setToastMessage("Navigation failed. Please try again.");
+            setToastType("error");
+            setShowToastMessage(true);
+        }
     };
 
     const handleAddToCart = (product) => {
-        console.log("Product added to cart:", product);
+        // console.log("Product added to cart:", product);
         setCartItems([...cartItems, product]);
         setToastMessage(`${product.title} added to cart!`);
         setShowToastMessage(true);
@@ -101,7 +114,7 @@ const ProductDetails = ({
                     </div>
                 </div>
             ) : (
-                <p>Product not found</p>
+                <p className="text-center mt-4">Product not found</p>
             )}
         </div>
     );
