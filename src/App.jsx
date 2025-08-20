@@ -17,6 +17,7 @@ function App() {
   const [showToastMessage, setShowToastMessage] = useState(false)
   const [toastMessage, setToastMessage] = useState("")
   const [pageLoading, setPageLoading] = useState(false)
+  const [toastType, setToastType] = useState("success");
   const [cartItems, setCartItems] = useState(() => {
     const stored = localStorage.getItem('cartItems');
     return stored ? JSON.parse(stored) : [];
@@ -60,6 +61,7 @@ function App() {
           setToastMessage={setToastMessage}
           setShowToastMessage={setShowToastMessage}
           setPageLoading={setPageLoading}
+          setToastType={setToastType}
         />}/>
 
         <Route path="/edit-product/:id" element={<ManageProduct
@@ -68,6 +70,7 @@ function App() {
           setToastMessage={setToastMessage}
           setShowToastMessage={setShowToastMessage}
           setPageLoading={setPageLoading}
+          setToastType={setToastType}
         />}/>
 
         <Route path="/products/:id" element={<ProductDetails
@@ -85,7 +88,11 @@ function App() {
           setCartItems={setCartItems}
         />}/>
       </Routes>
-      {showToastMessage && <ToastMessage setShowToastMessage={setShowToastMessage} message={toastMessage} />}
+      {showToastMessage && <ToastMessage
+        setShowToastMessage={setShowToastMessage}
+        message={toastMessage}
+        type={toastType}
+      />}
     </div>
   )
 }

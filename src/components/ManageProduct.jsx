@@ -7,7 +7,14 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const ManageProduct = ({ productList, setProductList, setToastMessage, setShowToastMessage, setPageLoading }) =>{
+const ManageProduct = ({
+        productList,
+        setProductList,
+        setToastMessage,
+        setShowToastMessage,
+        setPageLoading,
+        setToastType
+    }) => {
     const [validated, setValidated] = useState(false);
     const [categories, setCategories] = useState([]);
     const [imgUrl, setImgUrl] = useState('');
@@ -29,11 +36,12 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
             setCategories([]);
             setToastMessage('Failed to load categories. Please try again later.');
             setShowToastMessage(true);
+            setToastType("error");
         })
         .finally(() => {
             setPageLoading(false);
         });
-    }, [setPageLoading, setToastMessage, setShowToastMessage]);
+    }, [setPageLoading, setToastMessage, setShowToastMessage, setToastType]);
 
     useEffect(() => {
         if(id) {
@@ -54,6 +62,7 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
         if (form.checkValidity() === false) {
             setToastMessage("Please fill out all required fields correctly.");
             setShowToastMessage(true);
+            setToastType("error");
             event.stopPropagation();
         }else if(id) {
             setPageLoading(true);
@@ -72,10 +81,12 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
                 setProductList(updatedProductList);
                 setToastMessage("Product updated successfully!");
                 navigate('/products');
+                setToastType("success");
                 setShowToastMessage(true);
             })
             .catch(() =>{
                 setToastMessage("Failed to update product. Please try again later.");
+                setToastType("error");
                 setShowToastMessage(true);
             })
             .finally(() => {
@@ -96,10 +107,12 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
                 setProductList([...productList, res.data]);
                 setToastMessage("Product added successfully!");
                 navigate('/products');
+                setToastType("success");
                 setShowToastMessage(true);
             })
             .catch(() =>{
                 setToastMessage("Failed to add product. Please try again later.");
+                setToastType("error");
                 setShowToastMessage(true);
             })
             .finally(() => {
