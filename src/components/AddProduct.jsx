@@ -56,65 +56,68 @@ const AddProduct = ({ productList, setProductList, setToastMessage, setShowToast
     };
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Label>Product Title</Form.Label>
-                <Form.Control
-                    required
-                    type="text"
-                    placeholder="Product Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="12" controlId="validationCustom02">
-                <Form.Label>Product Description</Form.Label>
-                <Form.Control
-                    required
-                    type="text"
-                    placeholder="Product Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom03">
-                <Form.Label>Price</Form.Label>
-                <InputGroup hasValidation>
-                    <InputGroup.Text>$</InputGroup.Text>
+        <div>
+            <h2 className="text-center">Add New Product</h2>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Label>Product Title</Form.Label>
                     <Form.Control
-                        type="number"
-                        step="0.01"
-                        placeholder="Price"
                         required
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        type="text"
+                        placeholder="Product Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
-                    <Form.Control.Feedback type="invalid">Please provide a valid price. (e.g., 9.99)</Form.Control.Feedback>
-                </InputGroup>
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom04">
-                <Form.Label>Category</Form.Label>
-                <Form.Select required value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">Choose...</option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
-                    ))}
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">Please select a category.</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="12" controlId="validationCustom02">
-                <Form.Label>Image URL</Form.Label>
-                <Form.Control type="text" placeholder="Image URL" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            {imgUrl && (
-                <img className='img-preview' src={imgUrl} alt="Product" />
-            )}
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="12" controlId="validationCustom02">
+                    <Form.Label>Product Description</Form.Label>
+                    <Form.Control
+                        required
+                        type="text"
+                        placeholder="Product Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="6" controlId="validationCustom03">
+                    <Form.Label>Price</Form.Label>
+                    <InputGroup hasValidation>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control
+                            type="number"
+                            step="0.01"
+                            placeholder="Price"
+                            required
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                        />
+                        <Form.Control.Feedback type="invalid">Please provide a valid price. (e.g., 9.99)</Form.Control.Feedback>
+                    </InputGroup>
+                </Form.Group>
+                <Form.Group as={Col} md="6" controlId="validationCustom04">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Select required value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Choose...</option>
+                        {categories.map((category, index) => (
+                            <option key={index} value={category}>{category}</option>
+                        ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">Please select a category.</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="12" controlId="validationCustom02">
+                    <Form.Label>Image URL</Form.Label>
+                    <Form.Control type="text" placeholder="Image URL" value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+                {imgUrl && (
+                    <img className='img-preview' src={imgUrl} alt="Product" />
+                )}
 
-            <Button className="mt-3" type="submit">Add Product</Button>
-        </Form>
+                <Button className="mt-3" type="submit">Add Product</Button>
+            </Form>
+        </div>
     );
 }
 

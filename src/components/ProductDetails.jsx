@@ -1,12 +1,14 @@
 import axios from "axios";
 import "../styles/product-details.css"
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ConfirmationModal from "./ConfirmationModal";
 
 const ProductDetails = ({ productList, setProductList, setToastMessage, setShowToastMessage }) => {
 
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +30,7 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
             navigate('/products');
             setToastMessage(`${response.data.title} deleted successfully!`);
             setShowToastMessage(true);
+            setShowConfirmationModal(false);
         })
         .catch(error => {
             console.error("Error deleting product:", error);
@@ -37,6 +40,14 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
     return (
         <div>
             <h2 className="text-center">Product Details</h2>
+            {showConfirmationModal && (
+                <ConfirmationModal
+                    message="Are you sure you want to delete this product?"
+                    showConfirmationModal={showConfirmationModal}
+                    onClose={() => setShowConfirmationModal(false)}
+                    onConfirm={() => handleDeleteProduct(product.id)}
+                />
+            )}
             {product ? (
                 <div className="product-details">
                     <img src={product.image} alt={product.title} />
@@ -58,7 +69,7 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
                             ))}
                         </div>
                         <button>Add to Cart</button>
-                        <button onClick={() => handleDeleteProduct(product.id)}>Delete Product</button>
+                        <button onClick={() => setShowConfirmationModal(true)}>Delete Product</button>
                     </div>
                 </div>
             ) : (
