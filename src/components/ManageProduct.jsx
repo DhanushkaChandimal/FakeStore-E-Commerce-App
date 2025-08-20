@@ -31,7 +31,7 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
         .finally(() => {
             setPageLoading(false);
         });
-    }, []);
+    }, [setPageLoading]);
 
     useEffect(() => {
         if(id) {

@@ -32,7 +32,7 @@ const ProductDetails = ({
             .finally(() => {
                 setPageLoading(false);
             });
-    }, [id]);
+    }, [id, setPageLoading]);
 
     const handleDeleteProduct = (productId) => {
         setPageLoading(true);
