@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const ManageProduct = ({ productList, setProductList, setToastMessage, setShowToastMessage }) =>{
+const ManageProduct = ({ productList, setProductList, setToastMessage, setShowToastMessage, setPageLoading }) =>{
     const [validated, setValidated] = useState(false);
     const [categories, setCategories] = useState([]);
     const [imgUrl, setImgUrl] = useState('');
@@ -20,12 +20,16 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
     const navigate = useNavigate();
 
     useEffect(() => {
+        setPageLoading(true);
         axios.get('https://fakestoreapi.com/products/categories')
         .then(response => {
             setCategories(response.data);
         })
         .catch(error => {
             console.error('Error fetching categories:', error);
+        })
+        .finally(() => {
+            setPageLoading(false);
         });
     }, []);
 
@@ -48,6 +52,7 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }else if(id) {
+            setPageLoading(true);
             axios.put(`https://fakestoreapi.com/products/${id}`, {
                 title: title,
                 price: price,
@@ -68,7 +73,9 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
             .catch((error) =>{
                 console.error("Error updating product:", error)
             });
+            setPageLoading(false);
         }else{
+            setPageLoading(true);
             axios.post("https://fakestoreapi.com/products", {
                 title: title,
                 price: price,
@@ -87,6 +94,7 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
             .catch((error) =>{
                 console.error("Error adding product:", error)
             });
+            setPageLoading(false);
         }
         setValidated(true);
     };

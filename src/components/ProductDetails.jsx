@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ConfirmationModal from "./ConfirmationModal";
 
-const ProductDetails = ({ productList, setProductList, setToastMessage, setShowToastMessage, setCartItems, cartItems }) => {
+const ProductDetails = ({
+        productList,
+        setProductList,
+        setToastMessage,
+        setShowToastMessage,
+        setCartItems,
+        cartItems,
+        setPageLoading
+    }) => {
 
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -12,6 +20,7 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
     const navigate = useNavigate();
 
     useEffect(() => {
+        setPageLoading(true);
         axios.get(`https://fakestoreapi.com/products/${id}`)
             .then(response => {
                 console.log("Fetched product:", response.data);
@@ -19,10 +28,14 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
             })
             .catch(error => {
                 console.error("Error fetching product:", error);
+            })
+            .finally(() => {
+                setPageLoading(false);
             });
     }, [id]);
 
     const handleDeleteProduct = (productId) => {
+        setPageLoading(true);
         axios.delete(`https://fakestoreapi.com/products/${productId}`)
         .then(response => {
             console.log("Product deleted:", response.data);
@@ -34,6 +47,9 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
         })
         .catch(error => {
             console.error("Error deleting product:", error);
+        })
+        .finally(() => {
+            setPageLoading(false);
         });
     };
 
