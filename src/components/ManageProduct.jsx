@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/addProduct.css';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const AddProduct = ({ productList, setProductList, setToastMessage, setShowToastMessage }) =>{
+const ManageProduct = ({ productList, setProductList, setToastMessage, setShowToastMessage }) =>{
     const [validated, setValidated] = useState(false);
     const [categories, setCategories] = useState([]);
     const [imgUrl, setImgUrl] = useState('');
@@ -15,24 +15,59 @@ const AddProduct = ({ productList, setProductList, setToastMessage, setShowToast
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
+    const { id } = useParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('https://fakestoreapi.com/products/categories')
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching categories:', error);
-            });
+        .then(response => {
+            setCategories(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        });
     }, []);
+
+    useEffect(() => {
+        if(id) {
+            const product = productList.find(product => product.id === parseInt(id));
+            if (product) {
+                setTitle(product.title);
+                setDescription(product.description);
+                setPrice(product.price);
+                setCategory(product.category);
+                setImgUrl(product.image);
+            }
+        }
+    }, [id, productList]);
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
+        }else if(id) {
+            axios.put(`https://fakestoreapi.com/products/${id}`, {
+                title: title,
+                price: price,
+                description: description,
+                image: imgUrl ? imgUrl : '../image-not-found.jpg',
+                category: category,
+            })
+            .then((res) =>{
+                console.log(res.data)
+                const updatedProductList = productList.map(product =>
+                    product.id === parseInt(id) ? res.data : product
+                );
+                setProductList(updatedProductList);
+                setToastMessage("Product updated successfully!");
+                navigate('/products');
+                setShowToastMessage(true);
+            })
+            .catch((error) =>{
+                console.error("Error updating product:", error)
+            });
         }else{
             axios.post("https://fakestoreapi.com/products", {
                 title: title,
@@ -51,13 +86,14 @@ const AddProduct = ({ productList, setProductList, setToastMessage, setShowToast
             })
             .catch((error) =>{
                 console.error("Error adding product:", error)
-            });        }
+            });
+        }
         setValidated(true);
     };
 
     return (
         <div>
-            <h2 className="text-center">Add New Product</h2>
+            <h2 className="text-center">{id ? "Edit Product" : "Add New Product"}</h2>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group as={Col} md="12" controlId="validationCustom01">
                     <Form.Label>Product Title</Form.Label>
@@ -73,6 +109,8 @@ const AddProduct = ({ productList, setProductList, setToastMessage, setShowToast
                 <Form.Group as={Col} md="12" controlId="validationCustom02">
                     <Form.Label>Product Description</Form.Label>
                     <Form.Control
+                        as={'textarea'}
+                        rows={3}
                         required
                         type="text"
                         placeholder="Product Description"
@@ -115,10 +153,10 @@ const AddProduct = ({ productList, setProductList, setToastMessage, setShowToast
                     <img className='img-preview' src={imgUrl} alt="Product" />
                 )}
 
-                <Button className="mt-3" type="submit">Add Product</Button>
+                <Button className="mt-3" type="submit">{id ? "Update Product" : "Add Product"}</Button>
             </Form>
         </div>
     );
 }
 
-export default AddProduct;
+export default ManageProduct;

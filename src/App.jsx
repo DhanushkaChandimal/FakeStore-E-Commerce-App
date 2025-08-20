@@ -5,7 +5,7 @@ import './App.css'
 import AppNavbar from "./components/NavBar"
 import HomePage from "./components/HomePage"
 import ProductList from "./components/ProductList"
-import AddProduct from "./components/AddProduct"
+import ManageProduct from "./components/ManageProduct"
 import ProductDetails from "./components/ProductDetails"
 import ToastMessage from './components/ToastMessage'
 
@@ -36,7 +36,13 @@ function App() {
         <Route path="/products" element={<ProductList
           productList={productList}
         />}/>
-        <Route path="/add-product" element={<AddProduct
+        <Route path="/add-product" element={<ManageProduct
+          productList={productList}
+          setProductList={setProductList}
+          setToastMessage={setToastMessage}
+          setShowToastMessage={setShowToastMessage}
+        />}/>
+        <Route path="/edit-product/:id" element={<ManageProduct
           productList={productList}
           setProductList={setProductList}
           setToastMessage={setToastMessage}
@@ -49,7 +55,7 @@ function App() {
           setShowToastMessage={setShowToastMessage}
         />}/>
       </Routes>
-        {showToastMessage && <ToastMessage setShowToastMessage={setShowToastMessage} message={toastMessage} />}
+      {showToastMessage && <ToastMessage setShowToastMessage={setShowToastMessage} message={toastMessage} />}
     </div>
   )
 }

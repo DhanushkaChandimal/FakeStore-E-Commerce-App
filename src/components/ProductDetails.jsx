@@ -37,6 +37,10 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
         });
     };
 
+    const handleEditProduct = (productId) => {
+        navigate(`/edit-product/${productId}`);
+    };
+
     return (
         <div>
             <h2 className="text-center">Product Details</h2>
@@ -69,6 +73,7 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
                             ))}
                         </div>
                         <button>Add to Cart</button>
+                        <button onClick={() => handleEditProduct(product.id)}>Edit Product</button>
                         <button onClick={() => setShowConfirmationModal(true)}>Delete Product</button>
                     </div>
                 </div>
