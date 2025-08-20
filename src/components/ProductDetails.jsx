@@ -24,14 +24,13 @@ const ProductDetails = ({
         setPageLoading(true);
         axios.get(`https://fakestoreapi.com/products/${id}`)
             .then(response => {
-                console.log("Fetched product:", response.data);
                 setProduct(response.data);
             })
-            .catch(() => {
+            .catch((error) => {
                 setToastMessage("Error fetching product. Please try again later.");
                 setToastType("error");
                 setShowToastMessage(true);
-                console.error("Error fetching product:");
+                console.error("Error fetching product:", error);
             })
             .finally(() => {
                 setPageLoading(false);
@@ -42,7 +41,6 @@ const ProductDetails = ({
         setPageLoading(true);
         axios.delete(`https://fakestoreapi.com/products/${productId}`)
         .then(response => {
-            console.log("Product deleted:", response.data);
             setProductList(productList.filter(product => product.id !== productId));
             navigate('/products');
             setToastMessage(`${response.data.title} deleted successfully!`);
@@ -50,10 +48,11 @@ const ProductDetails = ({
             setShowToastMessage(true);
             setShowConfirmationModal(false);
         })
-        .catch(() => {
+        .catch((error) => {
             setToastMessage("Error deleting product. Please try again later.");
             setToastType("error");
             setShowToastMessage(true);
+            console.error("Error deleting product:", error);
         })
         .finally(() => {
             setPageLoading(false);
@@ -71,7 +70,6 @@ const ProductDetails = ({
     };
 
     const handleAddToCart = (product) => {
-        // console.log("Product added to cart:", product);
         setCartItems([...cartItems, product]);
         setToastMessage(`${product.title} added to cart!`);
         setShowToastMessage(true);

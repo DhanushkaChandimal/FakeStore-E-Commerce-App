@@ -4,12 +4,9 @@ import Card from "react-bootstrap/Card";
 
 const Product = ({productDetails}) => {
 
-    // console.log(productDetails)
-
     const navigate = useNavigate();
 
     const handleClick = () => {
-        console.log("Card clicked");
         navigate(`/products/${productDetails.id}`);
     }
 

@@ -32,14 +32,13 @@ function App() {
     setPageLoading(true);
     axios.get('https://fakestoreapi.com/products')
     .then(response => {
-      console.log(response.data);
-      // console.log(response.data[0]);
       setProductList(response.data);
     })
-    .catch(() => {
+    .catch((error) => {
       setToastMessage("Error fetching products. Please try again later.");
       setToastType("error");
       setShowToastMessage(true);
+      console.error("Error fetching products:", error);
     })
     .finally(() => {
       setPageLoading(false);

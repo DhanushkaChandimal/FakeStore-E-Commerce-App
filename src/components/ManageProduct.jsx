@@ -32,11 +32,12 @@ const ManageProduct = ({
         .then(response => {
             setCategories(response.data);
         })
-        .catch(() => {
+        .catch((error) => {
             setCategories([]);
             setToastMessage('Failed to load categories. Please try again later.');
             setShowToastMessage(true);
             setToastType("error");
+            console.error("Error fetching categories:", error);
         })
         .finally(() => {
             setPageLoading(false);
@@ -74,7 +75,6 @@ const ManageProduct = ({
                 category: category,
             })
             .then((res) =>{
-                console.log(res.data)
                 const updatedProductList = productList.map(product =>
                     product.id === parseInt(id) ? res.data : product
                 );
@@ -84,10 +84,11 @@ const ManageProduct = ({
                 setToastType("success");
                 setShowToastMessage(true);
             })
-            .catch(() =>{
+            .catch((error) =>{
                 setToastMessage("Failed to update product. Please try again later.");
                 setToastType("error");
                 setShowToastMessage(true);
+                console.error("Error updating product:", error);
             })
             .finally(() => {
                 setPageLoading(false);
@@ -102,18 +103,17 @@ const ManageProduct = ({
                 category: category,
             })
             .then((res) =>{
-                console.log(res.data)
-                console.log(productList)
                 setProductList([...productList, res.data]);
                 setToastMessage("Product added successfully!");
                 navigate('/products');
                 setToastType("success");
                 setShowToastMessage(true);
             })
-            .catch(() =>{
+            .catch((error) =>{
                 setToastMessage("Failed to add product. Please try again later.");
                 setToastType("error");
                 setShowToastMessage(true);
+                console.error("Error adding product:", error);
             })
             .finally(() => {
                 setPageLoading(false);
