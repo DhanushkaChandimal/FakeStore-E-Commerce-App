@@ -2,7 +2,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../styles/navbar.css';
 
-function AppNavbar() {
+const AppNavbar = ({ cartItems }) => {
     return (
         <div className='navbar-container'>
             <Navbar expand="lg" className="bg-body-tertiary w-100">
@@ -18,7 +18,7 @@ function AppNavbar() {
             </Navbar>
             <Nav.Link href="/cart" className='d-flex align-items-center ms-2 mt-1 bg-primary text-white rounded px-2'>
                 <img src="../cart-icon.png" alt="Cart" className='cart-icon'/>
-                Cart {0}
+                Cart {cartItems.length}
             </Nav.Link>
         </div>
     );

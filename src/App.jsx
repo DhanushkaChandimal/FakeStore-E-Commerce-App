@@ -14,6 +14,14 @@ function App() {
   const [productList, setProductList] = useState([])
   const [showToastMessage, setShowToastMessage] = useState(false)
   const [toastMessage, setToastMessage] = useState("")
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem('cartItems');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   useEffect(() => {
     if (productList.length > 0) return; // If productList is already populated, skip fetching
@@ -30,7 +38,7 @@ function App() {
 
   return (
     <div className='mx-3'>
-      <AppNavbar />
+      <AppNavbar cartItems={cartItems} />
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/products" element={<ProductList
@@ -53,6 +61,8 @@ function App() {
           setProductList={setProductList}
           setToastMessage={setToastMessage}
           setShowToastMessage={setShowToastMessage}
+          setCartItems={setCartItems}
+          cartItems={cartItems}
         />}/>
       </Routes>
       {showToastMessage && <ToastMessage setShowToastMessage={setShowToastMessage} message={toastMessage} />}

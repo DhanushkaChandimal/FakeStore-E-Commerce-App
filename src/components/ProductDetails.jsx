@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ConfirmationModal from "./ConfirmationModal";
 
-const ProductDetails = ({ productList, setProductList, setToastMessage, setShowToastMessage }) => {
+const ProductDetails = ({ productList, setProductList, setToastMessage, setShowToastMessage, setCartItems, cartItems }) => {
 
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -41,6 +41,13 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
         navigate(`/edit-product/${productId}`);
     };
 
+    const handleAddToCart = (product) => {
+        console.log("Product added to cart:", product);
+        setCartItems([...cartItems, product]);
+        setToastMessage(`${product.title} added to cart!`);
+        setShowToastMessage(true);
+    };
+
     return (
         <div>
             <h2 className="text-center">Product Details</h2>
@@ -72,7 +79,7 @@ const ProductDetails = ({ productList, setProductList, setToastMessage, setShowT
                                 <img key={index} src="../empty-star.png" alt="Empty Star" />
                             ))}
                         </div>
-                        <button>Add to Cart</button>
+                        <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
                         <button onClick={() => handleEditProduct(product.id)}>Edit Product</button>
                         <button onClick={() => setShowConfirmationModal(true)}>Delete Product</button>
                     </div>
