@@ -1,0 +1,13 @@
+.cart-image{
+    height: 140px;
+    max-width: 100px;
+    object-fit: contain;
+}
+
+.cart-container {
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

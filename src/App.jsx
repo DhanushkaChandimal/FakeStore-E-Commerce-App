@@ -8,6 +8,7 @@ import ProductList from "./components/ProductList"
 import ManageProduct from "./components/ManageProduct"
 import ProductDetails from "./components/ProductDetails"
 import ToastMessage from './components/ToastMessage'
+import Cart from './components/Cart'
 
 function App() {
 
@@ -63,6 +64,10 @@ function App() {
           setShowToastMessage={setShowToastMessage}
           setCartItems={setCartItems}
           cartItems={cartItems}
+        />}/>
+        <Route path="/cart" element={<Cart
+          cartItems={cartItems}
+          setCartItems={setCartItems}
         />}/>
       </Routes>
       {showToastMessage && <ToastMessage setShowToastMessage={setShowToastMessage} message={toastMessage} />}

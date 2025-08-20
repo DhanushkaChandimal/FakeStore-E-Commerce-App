@@ -1,4 +1,4 @@
-.card{
+.product-card{
     width: 200px;
     max-height: 420px;
     overflow: hidden;
@@ -20,7 +20,7 @@
     display: block;
 }
 
-.card:hover {
+.product-card:hover {
     cursor: pointer;
     transform: scale(1.05);
     transition: transform 0.2s;

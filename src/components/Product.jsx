@@ -14,7 +14,7 @@ const Product = ({productDetails}) => {
     }
 
     return (
-        <Card className="card" onClick={() => handleClick()}>
+        <Card className="product-card" onClick={() => handleClick()}>
             <Card.Img variant="top" src={productDetails.image} className="product-image p-2"/>
             <Card.Body>
                 <Card.Title>${productDetails.price}</Card.Title>
