@@ -36,8 +36,10 @@ function App() {
       // console.log(response.data[0]);
       setProductList(response.data);
     })
-    .catch(error => {
-      console.log("Error fetching form data. Please contact an admin. " + error)
+    .catch(() => {
+      setToastMessage("Error fetching products. Please try again later.");
+      setToastType("error");
+      setShowToastMessage(true);
     })
     .finally(() => {
       setPageLoading(false);
