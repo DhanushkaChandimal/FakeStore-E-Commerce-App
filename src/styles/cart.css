@@ -1,5 +1,5 @@
 .cart-image{
-    height: 140px;
+    height: 80px;
     max-width: 100px;
     object-fit: contain;
 }
@@ -10,4 +10,8 @@
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+    max-height: 100px;
 }
