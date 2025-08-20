@@ -25,13 +25,15 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
         .then(response => {
             setCategories(response.data);
         })
-        .catch(error => {
-            console.error('Error fetching categories:', error);
+        .catch(() => {
+            setCategories([]);
+            setToastMessage('Failed to load categories. Please try again later.');
+            setShowToastMessage(true);
         })
         .finally(() => {
             setPageLoading(false);
         });
-    }, [setPageLoading]);
+    }, [setPageLoading, setToastMessage, setShowToastMessage]);
 
     useEffect(() => {
         if(id) {
@@ -50,6 +52,8 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
         const form = event.currentTarget;
         event.preventDefault();
         if (form.checkValidity() === false) {
+            setToastMessage("Please fill out all required fields correctly.");
+            setShowToastMessage(true);
             event.stopPropagation();
         }else if(id) {
             setPageLoading(true);
@@ -70,10 +74,13 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
                 navigate('/products');
                 setShowToastMessage(true);
             })
-            .catch((error) =>{
-                console.error("Error updating product:", error)
+            .catch(() =>{
+                setToastMessage("Failed to update product. Please try again later.");
+                setShowToastMessage(true);
+            })
+            .finally(() => {
+                setPageLoading(false);
             });
-            setPageLoading(false);
         }else{
             setPageLoading(true);
             axios.post("https://fakestoreapi.com/products", {
@@ -91,10 +98,13 @@ const ManageProduct = ({ productList, setProductList, setToastMessage, setShowTo
                 navigate('/products');
                 setShowToastMessage(true);
             })
-            .catch((error) =>{
-                console.error("Error adding product:", error)
+            .catch(() =>{
+                setToastMessage("Failed to add product. Please try again later.");
+                setShowToastMessage(true);
+            })
+            .finally(() => {
+                setPageLoading(false);
             });
-            setPageLoading(false);
         }
         setValidated(true);
     };
