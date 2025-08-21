@@ -29,7 +29,7 @@ const HomePage = () => {
                 <Carousel.Item>
                     <img className="d-block w-100" src="../hero-clothing.jpg" alt="Second slide" />
                     <Carousel.Caption>
-                        <h2>Style Meets Comfort</h2>
+                        <h2>Style <span style={{color: "black"}}>Mee<span style={{color: "white"}}>ts</span></span> Comfort</h2>
                         <p>Handpicked fashion collections just for you</p>
                         <Button variant="light" size="lg" onClick={goToProducts}>Shop Now</Button>
                     </Carousel.Caption>
@@ -38,8 +38,8 @@ const HomePage = () => {
                 <Carousel.Item>
                     <img className="d-block w-100" src="../hero-electronics.jpg" alt="Third slide" />
                     <Carousel.Caption>
-                        <h2>Smart Choices</h2>
-                        <p className='text-dark'>Latest gadgets at unbeatable prices</p>
+                        <h2><span style={{backgroundColor: "white", color: "black"}}>S</span>mart Choices</h2>
+                        <p className='text-dark'>Latest gadg<span style={{color: "white"}}>ets at unbeatable p</span>rices</p>
                         <Button variant="light" size="lg" onClick={goToProducts}>Shop Now</Button>
                     </Carousel.Caption>
                 </Carousel.Item>
